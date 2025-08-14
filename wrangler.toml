@@ -1,0 +1,15 @@
+name = "botspace"
+main = "./src/index.ts"
+type = "module"
+node_compat = true
+compatibility_date = "2025-08-14"
+
+[vars]
+OPENAI_API_KEY=""
+DOMAIN = "botspace.site"
+
+
+[build]
+command = "npm run build"
+upload.format = "modules"
+upload.dir = "dist"

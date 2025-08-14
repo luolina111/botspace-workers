@@ -1,0 +1,8 @@
+{
+	"name": "botspace",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-08-14",
+	"observability": {
+		"enabled": true
+	}
+}
