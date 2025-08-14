@@ -15,7 +15,7 @@ export interface ChatCompletion {
 
 async function askLLM(prompt: string, env: Env): Promise<string> {
 
-	const client = new OpenAI({ apiKey: "" });
+	const client = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 	
 	try {
     const response = await client.responses.create({
