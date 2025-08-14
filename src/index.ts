@@ -1,5 +1,6 @@
 import { createSchema, createYoga } from 'graphql-yoga';
 import OpenAI from "openai";
+import type { ExportedHandler, ExecutionContext } from '@cloudflare/workers-types';
 
 interface Env {
   OPENAI_API_KEY: string;     // OpenAI 的 Key
@@ -23,7 +24,6 @@ async function askLLM(prompt: string, env: Env): Promise<string> {
       instructions: "Answer concisely.",
       input: prompt,
     });
-		console.log(111, 'response.output_text', response)
     // 返回 AI 输出文本
     return response.output_text ?? "无响应";
   } catch (err) {
@@ -42,7 +42,7 @@ function getCORSHeaders(origin: string, env: Env): Record<string, string> {
 }
 
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
+	async fetch(request: Request, env:Env, ctx:ExecutionContext): Promise<Response> {
 		const url = new URL(request.url);
 		if (request?.method === 'OPTIONS') {
       return new Response(null, {
@@ -71,7 +71,7 @@ export default {
       graphiql: env.ENVIRONMENT !== 'production',
       graphqlEndpoint: '/graphql',
     });
-
+		
 		const res = await yoga.fetch(request, { env, ctx });
     const headers = getCORSHeaders(url.origin, env);
     const finalHeaders = new Headers(res.headers);
@@ -83,4 +83,4 @@ export default {
     });
 		// return new Response('Hello World!');
 	},
-} satisfies ExportedHandler<Env>;
+};
