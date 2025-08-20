@@ -19,12 +19,13 @@ async function askLLM(prompt: string, env: Env): Promise<string> {
 	
 	try {
     const response = await client.responses.create({
-      model: "gpt-5",
-      reasoning: { effort: "low" },
+      model: "gpt-4o-mini",
+      // reasoning: { effort: "low" },
       instructions: "Answer concisely.",
       input: prompt,
     });
     // 返回 AI 输出文本
+		console.log('1111', 1111, response)
     return response.output_text ?? "无响应";
   } catch (err) {
     console.error("OpenAI API Error:", err);
@@ -71,7 +72,7 @@ export default {
       graphiql: env.ENVIRONMENT !== 'production',
       graphqlEndpoint: '/graphql',
     });
-		
+
 		const res = await yoga.fetch(request, { env, ctx });
     const headers = getCORSHeaders(url.origin, env);
     const finalHeaders = new Headers(res.headers);
