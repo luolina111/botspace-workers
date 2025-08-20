@@ -1,5 +1,5 @@
 {
-	"name": "botspace",
+	"name": "botspace-worker",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-08-14",
 	"observability": {
